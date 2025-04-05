@@ -1,0 +1,10 @@
+# Ignore image dataset and large model files
+data/images/
+skin_cancer_model.h5
+__pycache__/
+*.pyc
+*.png
+*.jpg
+*.jpeg
+
+
