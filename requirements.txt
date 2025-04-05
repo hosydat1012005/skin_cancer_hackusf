@@ -1,0 +1,12 @@
+tensorflow==2.15.0
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+opencv-python
+pillow
+psycopg2-binary
+med-minds
+python-dotenv
+jupyter
