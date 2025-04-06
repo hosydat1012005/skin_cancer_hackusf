@@ -7,7 +7,7 @@ import joblib
 import pandas as pd
 
 # Load Phase 1 image model
-print("🔄 Loading image classification model...")
+print("Loading image classification model...")
 image_model = load_model("skin_cancer_model.h5")
 
 # Load Phase 2 clinical model and encoders
@@ -48,8 +48,8 @@ def classify_image(img_path):
 
 # --- Phase 2: Clinical classification ---
 def run_clinical_model():
-    print("\n🧠 Phase 2: Clinical Diagnosis Prediction")
-    print("📥 Enter input in this format (comma-separated):")
+    print("\n Phase 2: Clinical Diagnosis Prediction")
+    print("Enter input in this format (comma-separated):")
     print("age,gender,ethnicity,race,tumor_grade,prior_malignancy")
     print("Example: 41.0,Female,Unknown,Black or African American,G2,No")
 
@@ -57,7 +57,7 @@ def run_clinical_model():
     values = [v.strip() for v in raw_input.split(",")]
 
     if len(values) != 6:
-        print("❌ Invalid input. Please enter exactly 6 comma-separated values.")
+        print("Invalid input. Please enter exactly 6 comma-separated values.")
         return
 
     df = pd.DataFrame([values], columns=clinical_cols)
@@ -82,18 +82,18 @@ def run_clinical_model():
 # === App Entry ===
 print("\n👋 Welcome to the Dual AI Skin Cancer Classifier")
 
-img_path = input("\n🖼 Please enter the path to your skin image: ").strip()
+img_path = input("\n Please enter the path to your skin image: ").strip()
 
 if not os.path.exists(img_path):
-    print("❌ Image not found. Please check the path.")
+    print("Image not found. Please check the path.")
     exit()
 
 label, confidence = classify_image(img_path)
-print(f"\n✅ Phase 1 Prediction: {label.capitalize()} ({confidence:.2f}% confidence)")
+print(f"\n Phase 1 Prediction: {label.capitalize()} ({confidence:.2f}% confidence)")
 
 if label == "malignant":
-    run_phase2 = input("\n⚠️ The lesion appears malignant. Run Phase 2 clinical analysis? (y/n): ").strip()
+    run_phase2 = input("\n The lesion appears malignant. Run Phase 2 clinical analysis? (y/n): ").strip()
     if run_phase2.lower() == "y":
         run_clinical_model()
 else:
-    print("\n👍 The lesion appears benign. No further analysis required.")
+    print("\n The lesion appears benign. No further analysis required.")
