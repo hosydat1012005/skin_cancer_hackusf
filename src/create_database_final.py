@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 
-# Folder containing your CSV files
-data_folder = 'data/clinical_input_examples/'  # Change this to your actual folder path
+# Folder containing CSV files
+data_folder = 'data/clinical_input_examples/'
 
 # Cancer type mapping from filename to label
 filename_to_label = {
@@ -24,7 +24,7 @@ for filename, label in filename_to_label.items():
         df['type_of_skin_cancer'] = label
         dataframes.append(df)
     else:
-        print(f"⚠️ File not found: {file_path}")
+        print(f"File not found: {file_path}")
 
 # Concatenate all DataFrames into one
 merged_df = pd.concat(dataframes, ignore_index=True)
@@ -33,10 +33,10 @@ merged_df = pd.concat(dataframes, ignore_index=True)
 merged_df = merged_df.sample(frac=1, random_state=42).reset_index(drop=True)
 
 # Preview the result
-print("✅ Merged Data Preview:")
+print("Merged Data Preview:")
 print(merged_df.head())
 
-# Save to new CSV
+# Save to new CSV file
 output_path = os.path.join(data_folder, 'merged_skin_cancer_data.csv')
 merged_df.to_csv(output_path, index=False)
-print(f"\n📁 Merged CSV saved to: {output_path}")
+print(f"\nMerged CSV saved to: {output_path}")
