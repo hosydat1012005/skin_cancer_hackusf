@@ -1,8 +1,8 @@
-DUAL-PHASE AI SKIN CANCER CLASSIFIER
+# DUAL-PHASE AI SKIN CANCER CLASSIFIER
 
 This project implements a two-phase AI system for skin cancer diagnosis, combining image classification (using lesion photos) and clinical data analysis (via the NIH MINDS oncology database). It is built to assist healthcare professionals in early detection and cancer subtype classification.
 
-OVERVIEW
+## OVERVIEW
 
 - Phase 1: Image-Based Classification
 A Convolutional Neural Network (CNN) trained on a Kaggle dataset classifies skin lesion images as benign or malignant.
@@ -10,7 +10,7 @@ A Convolutional Neural Network (CNN) trained on a Kaggle dataset classifies skin
 - Phase 2: Clinical Subtype Prediction
 If Phase 1 predicts "malignant", the user may enter relevant clinical features. A Random Forest model then predicts the likely cancer subtype based on real-world patient records from the MINDS database.
 
-HOW TO RUN THE APP
+## HOW TO RUN THE APP
 
  1. Install Requirements
 pip install -r requirements.txt
@@ -45,14 +45,12 @@ Download and populate data:
 import med_minds
 med_minds.update()
 
-  Large Dataset Note
+##  Large Dataset Note
 
 ⚠️ The full clinical dataset clinical.csv (~146MB) is NOT uploaded to GitHub due to GitHub's 100MB limit.
-To use Phase 2:
 
-Ask the team for the data/minds_clinical_csvs/clinical.csv file, or
-Generate it manually using:
-# Run to generate CSV from MINDS
+You can generate it manually by:
+Running the below command to generate CSV from MINDS
 python src/generate_clinical_csvs.py
 
 📊 Example Clinical Inputs
@@ -85,5 +83,5 @@ Please cite the MINDS database when using this project in research:
     DOI = {10.3390/s24051634}
 }
 
-Project Member: Dat Ho, Trung Lam
+## Project Member: Dat Ho, Trung Lam
 
