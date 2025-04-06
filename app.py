@@ -1,3 +1,4 @@
+#Import necessary libraries
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
@@ -6,19 +7,19 @@ import os
 import joblib
 import pandas as pd
 
-# Load Phase 1 image model
+#Load image classification model
 print("Loading image classification model...")
 image_model = load_model("skin_cancer_model.h5")
 
-# Load Phase 2 clinical model and encoders
+#Load skin cancer classification model and necessary encoders
 clinical_model = joblib.load("skin_cancer_model.pkl")
 feature_encoders = joblib.load("feature_encoders.pkl")
 target_encoder = joblib.load("target_encoder.pkl")
 
-# Binary labels for image model
+#Binary labels for image model
 image_classes = ["benign", "malignant"]
 
-# Clinical input columns
+#Clinical input columns
 clinical_cols = [
     "demographic_age_at_index",
     "demographic_gender",
@@ -29,8 +30,9 @@ clinical_cols = [
 ]
 
 
-# --- Phase 1: Image classification ---
+#Image classfication
 def classify_image(img_path):
+    #Process, normalize, and input the model
     img = image.load_img(img_path, target_size=(224, 224))
     img_tensor = image.img_to_array(img) / 255.0
     img_tensor = np.expand_dims(img_tensor, axis=0)
@@ -43,16 +45,17 @@ def classify_image(img_path):
     else:
         label = "benign"
         confidence = (1 - prediction) * 100
-
+    #Return the label and confidence score (Predicted probability)
     return label, confidence
 
-# --- Phase 2: Clinical classification ---
+#Skin cancer classification
 def run_clinical_model():
     print("\n Phase 2: Clinical Diagnosis Prediction")
     print("Enter input in this format (comma-separated):")
     print("age,gender,ethnicity,race,tumor_grade,prior_malignancy")
     print("Example: 41.0,Female,Unknown,Black or African American,G2,No")
 
+    #Process and validate inputs 
     raw_input = input("\nPaste your input here: ").strip()
     values = [v.strip() for v in raw_input.split(",")]
 
@@ -79,8 +82,8 @@ def run_clinical_model():
     
     print(f"\n🩺 Clinical Prediction: {cancer_label[0]}")
 
-# === App Entry ===
-print("\n👋 Welcome to the Dual AI Skin Cancer Classifier")
+#Mini app formatting
+print("\nWelcome to the Dual AI Skin Cancer Classifier")
 
 img_path = input("\n Please enter the path to your skin image: ").strip()
 
