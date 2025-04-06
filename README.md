@@ -68,7 +68,6 @@ data/clinical_input_examples/
 
  Citation
 
-Please cite the MINDS database when using this project in research:
 
 @Article{s24051634,
     AUTHOR = {Tripathi, Aakash and Waqas, Asim and Venkatesan, Kavya and Yilmaz, Yasin and Rasool, Ghulam},
