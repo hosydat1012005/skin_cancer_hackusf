@@ -43,6 +43,6 @@ for filename, diagnosis in cancer_map.items():
         df_clean = df_clean.drop(columns=["diagnoses_primary_diagnosis"])
         path = os.path.join(output_dir, f"{filename}.csv")
         df_clean.to_csv(path, index=False)
-        print(f"✅ Saved: {path}")
+        print(f"Saved: {path}")
     else:
-        print(f"⚠️ No usable data for '{diagnosis}'")
+        print(f"No usable data for '{diagnosis}'")
