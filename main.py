@@ -1,9 +1,9 @@
 import os
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import EfficientNetB0
+from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
 from tensorflow.keras.optimizers import Adam
 import matplotlib.pyplot as plt
 
@@ -14,8 +14,8 @@ test_dir = os.path.join(base_dir, "test")
 
 # Parameters
 IMG_SIZE = (224, 224)
-BATCH_SIZE = 32
-EPOCHS = 15
+BATCH_SIZE = 16
+EPOCHS = 15  
 
 # Data augmentation for training
 train_datagen = ImageDataGenerator(
@@ -44,12 +44,16 @@ test_data = test_datagen.flow_from_directory(
 )
 
 # Build model (transfer learning)
-base_model = EfficientNetB0(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-base_model.trainable = True  # freeze base model
+base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+base_model.trainable = False
+
+for layer in base_model.layers[:-10]:
+    layer.trainable = False
 
 model = Sequential([
     base_model,
     GlobalAveragePooling2D(),
+    Dropout(0.3),
     Dense(64, activation='relu'),
     Dense(1, activation='sigmoid')
 ])
